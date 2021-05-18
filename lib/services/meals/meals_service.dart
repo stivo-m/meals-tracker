@@ -14,6 +14,14 @@ class MealService implements BaseMealService {
   }
 
   @override
+  Future<List<Meal>> getMeals() async {
+    List<Meal> meals;
+    QuerySnapshot documents = await _mealsCollection.get();
+    meals = documents.docs.map((doc) => Meal.fromDoc(doc)).toList();
+    return meals;
+  }
+
+  @override
   // returns a document snapshot containing the meal from db
   Future<Meal> addMeal({required Meal meal}) async {
     // add a meal to the firestore database
@@ -31,3 +39,5 @@ class MealService implements BaseMealService {
     await _mealsCollection.doc(meal.id).delete();
   }
 }
+
+MealService mealService = MealService();

@@ -5,7 +5,7 @@ class Meal {
   final String name, description, imageUrl;
   final String user;
   final DateTime savedAt, updatedAt, remindAt;
-
+  final MealType mealType;
   Meal({
     required this.id,
     required this.name,
@@ -15,6 +15,7 @@ class Meal {
     required this.savedAt,
     required this.updatedAt,
     required this.remindAt,
+    this.mealType = MealType.BREAKFAST,
   });
 
   Map<String, dynamic> toDoc(Meal meal) {
@@ -37,5 +38,29 @@ class Meal {
         this.user = snapshot['user'],
         this.savedAt = snapshot['savedAt'],
         this.updatedAt = snapshot['updatedAt'],
-        this.remindAt = snapshot['remindAt'];
+        this.remindAt = snapshot['remindAt'],
+        this.mealType = snapshot['mealType'] ?? MealType.BREAKFAST;
+
+  static String mealTypeString(MealType mealType) {
+    switch (mealType) {
+      case MealType.BREAKFAST:
+        return 'Breakfast';
+      case MealType.LUNCH:
+        return 'Lunch';
+      case MealType.SNACK:
+        return 'Snack';
+      case MealType.DINNER:
+        return 'Dinner';
+
+      default:
+        return '';
+    }
+  }
+}
+
+enum MealType {
+  BREAKFAST,
+  LUNCH,
+  SNACK,
+  DINNER,
 }
