@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Meal {
+  final String id;
   final String name, description, imageUrl;
   final String user;
   final DateTime savedAt, updatedAt, remindAt;
 
   Meal({
+    required this.id,
     required this.name,
     required this.description,
     required this.imageUrl,
@@ -24,4 +28,14 @@ class Meal {
     mealDoc['remindAt'] = meal.remindAt;
     return mealDoc;
   }
+
+  Meal.fromDoc(DocumentSnapshot snapshot)
+      : this.id = snapshot.id,
+        this.name = snapshot['name'],
+        this.description = snapshot['description'],
+        this.imageUrl = snapshot['imageUrl'],
+        this.user = snapshot['user'],
+        this.savedAt = snapshot['savedAt'],
+        this.updatedAt = snapshot['updatedAt'],
+        this.remindAt = snapshot['remindAt'];
 }

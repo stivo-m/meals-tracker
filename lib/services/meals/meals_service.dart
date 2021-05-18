@@ -5,33 +5,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MealService implements BaseMealService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  @override
-  Future addMeal({required Meal meal}) async {
-    // add a meal to the firestore database
+  late CollectionReference<Map<String, dynamic>> _mealsCollection;
+  MealService() {
     // the collection should be meals-userid for future reference
-    await _firestore
-        .collection(
-          "meals-" + authservice.currentUser!.uid.toString(),
-        )
-        .add(meal.toDoc(meal));
+    _mealsCollection = _firestore.collection(
+      "meals-" + authservice.currentUser!.uid.toString(),
+    );
   }
 
   @override
-  Future getMeal({required String id}) {
-    throw UnimplementedError();
+  // returns a document snapshot containing the meal from db
+  Future<Meal> addMeal({required Meal meal}) async {
+    // add a meal to the firestore database
+    DocumentReference doc = await _mealsCollection.add(meal.toDoc(meal));
+    return Meal.fromDoc(await doc.get());
   }
 
   @override
-  Future updateMeal({required Meal meal, required List updates}) {
-    throw UnimplementedError();
+  Future updateMeal({required Meal meal, required List updates}) async {
+    await _mealsCollection.doc(meal.id).update(Map.fromIterable(updates));
   }
 
   @override
   Future deleteMeal({required Meal meal}) async {
-    await _firestore
-        .collection(
-          "meals-" + authservice.currentUser!.uid.toString(),
-        )
-        .add(meal.toDoc(meal));
+    await _mealsCollection.doc(meal.id).delete();
   }
 }
