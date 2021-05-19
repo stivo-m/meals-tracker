@@ -10,6 +10,7 @@ import 'package:meal_tracker/services/auth/auth_service.dart';
 import 'package:meal_tracker/services/navigation/navigation_service.dart';
 import 'package:redux/redux.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   late String? email, password;

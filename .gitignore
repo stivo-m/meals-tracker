@@ -46,3 +46,5 @@ app.*.map.json
 /android/app/release
 
 .env*
+.github/workflows/ci.yml
+.github/workflows/ci.yml
