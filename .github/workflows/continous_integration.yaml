@@ -31,5 +31,5 @@ jobs:
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
 
-      # Run widget tests for our flutter project.
+      # Run widget tests for our flutter project updated.
       - run: flutter test
