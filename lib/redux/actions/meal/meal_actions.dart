@@ -18,6 +18,8 @@ class GetMeal implements MealActions {
   });
 }
 
+class GetMeals implements MealActions {}
+
 class UpdateMeal implements MealActions {
   final Meal meal;
   List<dynamic> updates;

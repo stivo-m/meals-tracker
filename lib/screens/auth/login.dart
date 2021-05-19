@@ -6,7 +6,6 @@ import 'package:meal_tracker/global/strings.dart';
 import 'package:meal_tracker/redux/actions/user/user_actions.dart';
 import 'package:meal_tracker/redux/app_redux.dart';
 import 'package:meal_tracker/redux/state/modules/user_state.dart';
-import 'package:meal_tracker/screens/meals/meals.dart';
 import 'package:meal_tracker/services/auth/auth_service.dart';
 import 'package:meal_tracker/services/navigation/navigation_service.dart';
 import 'package:redux/redux.dart';
@@ -179,7 +178,7 @@ class LoginScreen extends StatelessWidget {
           Text(
             'Meals',
             style: TextStyle(
-              color: Theme.of(context).accentColor.withOpacity(0.6),
+              color: Colors.white.withOpacity(0.6),
               fontSize: 35,
               fontWeight: FontWeight.bold,
             ),
@@ -190,7 +189,7 @@ class LoginScreen extends StatelessWidget {
           Text(
             'Tracker',
             style: TextStyle(
-              color: Theme.of(context).accentColor.withOpacity(0.8),
+              color: Colors.white.withOpacity(0.8),
               fontSize: 35,
               fontWeight: FontWeight.w300,
             ),
