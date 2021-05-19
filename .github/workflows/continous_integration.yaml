@@ -27,7 +27,7 @@ jobs:
         run: dart analyze
       
       # run tests
-      - name: Run Tests
+      - name: Run Tests on code
         run: dart test
 
         
