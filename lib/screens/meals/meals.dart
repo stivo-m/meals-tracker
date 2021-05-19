@@ -7,7 +7,6 @@ import 'package:meal_tracker/global/strings.dart';
 import 'package:meal_tracker/redux/actions/meal/meal_actions.dart';
 import 'package:meal_tracker/redux/actions/user/user_actions.dart';
 import 'package:meal_tracker/redux/app_redux.dart';
-import 'package:meal_tracker/redux/state/modules/user_state.dart';
 import 'package:meal_tracker/screens/widgets/data.dart';
 import 'package:meal_tracker/screens/widgets/meals_card_widget.dart';
 import 'package:meal_tracker/services/auth/auth_service.dart';

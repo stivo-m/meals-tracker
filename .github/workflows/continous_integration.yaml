@@ -1,23 +1,20 @@
 name: Continuous Integration
 
-on: 
+on:
   push:
     branches: [main]
   pull_request:
-    branches: [ main ]
-      
+    branches: [main]
 
 jobs:
   workflow:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        
         # setup flutter
       - name: Setup Flutter using version 2.12.0
         # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
       - uses: dart-lang/setup-dart@v2.12.0
-        
         # install necessary dependencies
       - name: Install Dependencies
         run: dart pub get
@@ -25,14 +22,7 @@ jobs:
         # Analyze dart
       - name: Analyze dart
         run: dart analyze
-      
+
       # run tests
       - name: Run Tests on code
         run: dart test
-
-        
-          
-
-
-
-    
