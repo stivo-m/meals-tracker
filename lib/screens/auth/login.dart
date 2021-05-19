@@ -10,10 +10,10 @@ import 'package:meal_tracker/services/auth/auth_service.dart';
 import 'package:meal_tracker/services/navigation/navigation_service.dart';
 import 'package:redux/redux.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
-  late String? email, password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String getBgImage() {
     // Random _rand = Random();
@@ -235,7 +235,7 @@ class LoginScreen extends StatelessWidget {
           return 'Email cannot be empty';
         }
       },
-      onSaved: (String? val) => email = val,
+      controller: _emailController,
     );
   }
 
@@ -277,7 +277,7 @@ class LoginScreen extends StatelessWidget {
           return 'Password should be more than 5 characters';
         }
       },
-      onSaved: (String? val) => password = val,
+      controller: _passwordController,
     );
   }
 
@@ -290,8 +290,8 @@ class LoginScreen extends StatelessWidget {
                 _formState.currentState?.save();
                 store.dispatch(
                   LoginAction(
-                    email: email,
-                    password: password,
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim(),
                   ),
                 );
               }
