@@ -1,28 +1,28 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meal_tracker/redux/state/modules/meal_state.dart';
 import 'package:meal_tracker/redux/state/modules/message_state.dart';
-import 'package:meal_tracker/services/auth/auth_service.dart';
+import 'package:meal_tracker/redux/state/modules/user_state.dart';
 
 class AppState {
   final MealState mealState;
   final MessageState messageState;
-  final User? user;
+  final UserState userState;
 
   AppState({
     required this.mealState,
     required this.messageState,
-    required this.user,
+    required this.userState,
   });
 
   AppState.initialState()
       : this.mealState = MealState.initialState(),
         this.messageState = MessageState.initialState(),
-        this.user = authservice.currentUser;
+        this.userState = UserState.initialState();
 
   AppState.copyWith({
     required MealState mealState,
     required MessageState messageState,
+    required UserState userState,
   })   : this.mealState = mealState,
         this.messageState = messageState,
-        this.user = authservice.currentUser;
+        this.userState = userState;
 }

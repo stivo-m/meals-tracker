@@ -22,6 +22,13 @@ class MealService implements BaseMealService {
   }
 
   @override
+  Future<List<Meal>> getMealsForDay(String day, List<Meal> meals) async {
+    List<Meal> mealsForDay;
+    mealsForDay = meals.where((Meal meal) => meal.day == day).toList();
+    return mealsForDay;
+  }
+
+  @override
   // returns a document snapshot containing the meal from db
   Future<Meal> addMeal({required Meal meal}) async {
     // add a meal to the firestore database

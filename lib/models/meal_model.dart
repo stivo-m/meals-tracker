@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Meal {
   final String id;
-  final String name, description, imageUrl;
+  final String name, description, imageUrl, day;
   final String user;
   final DateTime savedAt, updatedAt, remindAt;
   final MealType mealType;
   Meal({
     required this.id,
     required this.name,
+    required this.day,
     required this.description,
     required this.imageUrl,
     required this.user,
@@ -21,6 +22,7 @@ class Meal {
   Map<String, dynamic> toDoc(Meal meal) {
     Map<String, dynamic> mealDoc = Map<String, dynamic>();
     mealDoc['name'] = meal.name;
+    mealDoc['day'] = meal.day;
     mealDoc['description'] = meal.description;
     mealDoc['imageUrl'] = meal.imageUrl;
     mealDoc['user'] = meal.user;
@@ -33,6 +35,7 @@ class Meal {
   Meal.fromDoc(DocumentSnapshot snapshot)
       : this.id = snapshot.id,
         this.name = snapshot['name'],
+        this.day = snapshot['day'],
         this.description = snapshot['description'],
         this.imageUrl = snapshot['imageUrl'],
         this.user = snapshot['user'],

@@ -39,6 +39,7 @@ List<DateCard> dateCards = [
 
 List<Meal> meals = [
   Meal(
+    day: 'MO',
     id: "1234",
     name: "Bread and Milk",
     description: "The breakfast meal for most people",
@@ -50,6 +51,7 @@ List<Meal> meals = [
     mealType: MealType.BREAKFAST,
   ),
   Meal(
+    day: 'MO',
     id: "1235",
     name: "Rice with Beef",
     description: "The lunch meal for most people",
@@ -61,6 +63,7 @@ List<Meal> meals = [
     mealType: MealType.LUNCH,
   ),
   Meal(
+    day: 'MO',
     id: "1236",
     name: "Bread and Milk",
     description: "The snack meal for most people",
@@ -72,6 +75,7 @@ List<Meal> meals = [
     mealType: MealType.SNACK,
   ),
   Meal(
+    day: 'MO',
     id: "1237",
     name: "Rice with Beef",
     description: "The dinner meal for most people",
