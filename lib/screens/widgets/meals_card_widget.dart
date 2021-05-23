@@ -18,7 +18,7 @@ class MealsCard extends StatelessWidget {
         horizontal: 20.0,
       ),
       margin: const EdgeInsets.symmetric(
-        vertical: 10.0,
+        vertical: 30.0,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

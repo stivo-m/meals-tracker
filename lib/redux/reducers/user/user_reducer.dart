@@ -2,19 +2,6 @@ import 'package:meal_tracker/redux/actions/user/user_actions.dart';
 import 'package:meal_tracker/redux/state/modules/user_state.dart';
 
 UserState userReducer(UserState prevState, dynamic action) {
-  if (action is LoginAction) {
-    return UserState.copyWith(
-      prevState: prevState,
-      isLoading: true,
-    );
-  }
-  if (action is RegisterAction) {
-    return UserState.copyWith(
-      prevState: prevState,
-      isLoading: true,
-    );
-  }
-
   if (action is SignInWithGoogleAction) {
     return UserState.copyWith(
       prevState: prevState,

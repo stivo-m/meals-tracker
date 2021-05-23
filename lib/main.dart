@@ -5,6 +5,7 @@ import 'package:meal_tracker/global/router.dart';
 import 'package:meal_tracker/global/strings.dart';
 import 'package:meal_tracker/models/theme_model.dart';
 import 'package:meal_tracker/redux/app_redux.dart';
+import 'package:meal_tracker/redux/middleware/meals/meals_middleware.dart';
 import 'package:meal_tracker/redux/middleware/user/user_middleware.dart';
 import 'package:meal_tracker/redux/reducers/reducer.dart';
 import 'package:meal_tracker/services/auth/auth_service.dart';
@@ -17,7 +18,7 @@ void main() async {
   final Store<AppState> _store = Store<AppState>(
     appReducer,
     initialState: AppState.initialState(),
-    middleware: [userMiddleware],
+    middleware: [userMiddleware]..add(mealsMiddleware),
   );
   runApp(MyApp(store: _store));
 }

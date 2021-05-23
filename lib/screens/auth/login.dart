@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -12,13 +14,11 @@ import 'package:redux/redux.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   String getBgImage() {
-    // Random _rand = Random();
-    // int numb = _rand.nextInt(5) + 1;
-    String img = 'assets/images/bg1.jpg';
+    Random _rand = Random();
+    int numb = _rand.nextInt(5) + 1;
+    String img = 'assets/images/bg$numb.jpg';
     return img;
   }
 
@@ -63,19 +63,24 @@ class LoginScreen extends StatelessWidget {
   Form _buildForm(BuildContext context, Store<AppState> store) {
     return Form(
       key: _formState,
-      child: SingleChildScrollView(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 100.0,
+              height: 10.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
               ),
               child: _buildTitle(context),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
+              child: _buildDescription(context),
             ),
             if (store.state.userState.authStatus == AuthStatus.AUTHERROR)
               AnimatedContainer(
@@ -107,63 +112,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: _buildEmailField(),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: _buildPasswordField(),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: _buildLoginButton(store),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: Text(
-                'OR',
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: _buildGoogleSignInButton(context, store),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: _buildCreateAccountButton(),
             ),
           ],
         ),
@@ -200,115 +151,16 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  TextFormField _buildEmailField() {
-    return TextFormField(
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      decoration: InputDecoration(
-        labelText: 'Enter your email',
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.5),
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-      ),
-      validator: (String? val) {
-        if (val!.isEmpty) {
-          return 'Email cannot be empty';
-        }
-      },
-      controller: _emailController,
-    );
-  }
-
-  TextFormField _buildPasswordField() {
-    return TextFormField(
-      obscureText: true,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-      decoration: InputDecoration(
-        labelText: 'Enter your password',
-        labelStyle: TextStyle(
-          color: Colors.white,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white,
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.5),
-            width: 1.0,
-            style: BorderStyle.solid,
-          ),
-        ),
-      ),
-      validator: (String? val) {
-        if (val!.isEmpty) {
-          return 'Password cannot be empty';
-        } else if (val.length < 5) {
-          return 'Password should be more than 5 characters';
-        }
-      },
-      controller: _passwordController,
-    );
-  }
-
-  ElevatedButton _buildLoginButton(Store<AppState> store) {
-    return ElevatedButton(
-      onPressed: store.state.userState.loading
-          ? () {}
-          : () {
-              if (_formState.currentState!.validate()) {
-                _formState.currentState?.save();
-                store.dispatch(
-                  LoginAction(
-                    email: _emailController.text.trim(),
-                    password: _passwordController.text.trim(),
-                  ),
-                );
-              }
-            },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15.0,
-        ),
-        child: Container(
-          width: double.infinity,
-          child: Center(
-            child: store.state.userState.loading
-                ? CircularProgressIndicator()
-                : Text(
-                    'Login'.toUpperCase(),
-                  ),
-          ),
+  Padding _buildDescription(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
+      child: Text(
+        'If I am declaring the variables as final then then the values(variables) i want to change(on pressed) are in set state(){} so those variables can be changed What to do to prevent this?',
+        maxLines: 5,
+        style: TextStyle(
+          color: Colors.white.withOpacity(0.9),
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );
@@ -348,36 +200,6 @@ class LoginScreen extends StatelessWidget {
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
             )
-          ],
-        ),
-      ),
-    );
-  }
-
-  TextButton _buildCreateAccountButton() {
-    return TextButton(
-      onPressed: () {},
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'New Here?',
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.5),
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              'Create Account',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ],
         ),
       ),

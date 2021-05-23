@@ -5,7 +5,7 @@ MealState mealsReducer(MealState mealState, dynamic action) {
   if (action is AddMeal) {
     // add meal to db
     return MealState.copyWith(
-      meals: mealState.meals..add(action.meal),
+      meals: mealState.meals,
       isLoading: true,
     );
   }
@@ -38,7 +38,14 @@ MealState mealsReducer(MealState mealState, dynamic action) {
     //this is the only action that has a loading status of false
     // it is called from the midlleware after any of the above actions, other than the getMeal action
     return MealState.copyWith(
-      meals: mealState.meals,
+      meals: mealState.meals..add(action.meal!),
+      isLoading: false,
+    );
+  }
+
+  if (action is ShowMeals) {
+    return MealState.copyWith(
+      meals: action.meals,
       isLoading: false,
     );
   }

@@ -30,6 +30,14 @@ class UpdateMeal implements MealActions {
   });
 }
 
+class ShowMeals implements MealActions {
+  final List<Meal> meals;
+
+  ShowMeals({
+    required this.meals,
+  });
+}
+
 class RemoveMeal implements MealActions {
   final Meal meal;
 
@@ -38,4 +46,8 @@ class RemoveMeal implements MealActions {
   });
 }
 
-class MealUpdated implements MealActions {}
+class MealUpdated implements MealActions {
+  final Meal? meal;
+
+  MealUpdated({this.meal});
+}

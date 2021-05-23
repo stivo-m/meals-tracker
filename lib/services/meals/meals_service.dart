@@ -18,6 +18,7 @@ class MealService implements BaseMealService {
     List<Meal> meals;
     QuerySnapshot documents = await _mealsCollection.get();
     meals = documents.docs.map((doc) => Meal.fromDoc(doc)).toList();
+    print("-- INFO FROM DB ----- " + meals.length.toString());
     return meals;
   }
 

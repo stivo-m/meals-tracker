@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Meal {
-  final String id;
-  final String name, description, imageUrl, day;
+  final String? id, imageUrl;
+  final String name, description, day;
   final String user;
   final DateTime savedAt, updatedAt, remindAt;
-  final MealType mealType;
+  final MealType? mealType;
   Meal({
-    required this.id,
+    this.id,
     required this.name,
     required this.day,
     required this.description,
-    required this.imageUrl,
+    this.imageUrl,
     required this.user,
     required this.savedAt,
     required this.updatedAt,
@@ -24,7 +24,7 @@ class Meal {
     mealDoc['name'] = meal.name;
     mealDoc['day'] = meal.day;
     mealDoc['description'] = meal.description;
-    mealDoc['imageUrl'] = meal.imageUrl;
+    mealDoc['imageUrl'] = meal.imageUrl ?? "";
     mealDoc['user'] = meal.user;
     mealDoc['savedAt'] = meal.savedAt;
     mealDoc['updatedAt'] = meal.updatedAt;
@@ -39,12 +39,12 @@ class Meal {
         this.description = snapshot['description'],
         this.imageUrl = snapshot['imageUrl'],
         this.user = snapshot['user'],
-        this.savedAt = snapshot['savedAt'],
-        this.updatedAt = snapshot['updatedAt'],
-        this.remindAt = snapshot['remindAt'],
-        this.mealType = snapshot['mealType'] ?? MealType.BREAKFAST;
+        this.savedAt = snapshot['savedAt'].toDate(),
+        this.updatedAt = snapshot['updatedAt'].toDate(),
+        this.remindAt = snapshot['remindAt'].toDate(),
+        this.mealType = MealType.BREAKFAST;
 
-  static String mealTypeString(MealType mealType) {
+  static String mealTypeString(MealType? mealType) {
     switch (mealType) {
       case MealType.BREAKFAST:
         return 'Breakfast';

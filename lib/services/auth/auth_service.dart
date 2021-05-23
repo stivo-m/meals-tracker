@@ -4,7 +4,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService implements BaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  // late SharedPreferences _preferences;
   late GoogleSignIn _googleSignIn;
+
+  Future _setSharedPreferences() async {
+    // _preferences = await SharedPreferences.getInstance();
+  }
 
   AuthService() {
     _googleSignIn = GoogleSignIn(
@@ -13,6 +18,7 @@ class AuthService implements BaseAuthService {
         'https://www.googleapis.com/auth/contacts.readonly',
       ],
     );
+    _setSharedPreferences();
   }
 
   @override
